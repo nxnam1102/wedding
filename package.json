@@ -16,7 +16,8 @@
     "body-parser": "^1.20.3",
     "express": "^4.21.1",
     "google-auth-library": "^9.14.2",
-    "googleapis": "^144.0.0"
+    "googleapis": "^144.0.0",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

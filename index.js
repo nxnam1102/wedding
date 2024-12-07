@@ -42,6 +42,7 @@ const express_1 = __importDefault(require("express"));
 const googleapis_1 = require("googleapis");
 const path_1 = __importDefault(require("path"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const cors_1 = __importDefault(require("cors"));
 function formatDate(date) {
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
@@ -53,12 +54,18 @@ function formatDate(date) {
 const app = (0, express_1.default)();
 const keyFilePath = path_1.default.join(
   __dirname,
-  "assets/google/mylove-433207-94588a3b4b4a.json"
+  "/assets/google/mylove-433207-94588a3b4b4a.json"
 );
 const auth = new googleapis_1.google.auth.GoogleAuth({
   keyFile: keyFilePath,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
+const corsOptions = {
+  origin: "*", // Replace with your frontend URL or use '*' for all origins
+  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use((error, req, res, next) => {
   var _a;
   // Default error status code

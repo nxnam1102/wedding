@@ -3,6 +3,7 @@ import { google, sheets_v4 } from "googleapis";
 import { OAuth2Client } from "google-auth-library";
 import path from "path";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 function formatDate(date: Date) {
   const day = String(date.getDate()).padStart(2, "0");
@@ -23,6 +24,14 @@ const auth = new google.auth.GoogleAuth({
   keyFile: keyFilePath,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
+
+const corsOptions = {
+  origin: "*", // Replace with your frontend URL or use '*' for all origins
+  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+};
+
+app.use(cors(corsOptions));
 
 app.use((error: any, req: any, res: any, next: any) => {
   // Default error status code
